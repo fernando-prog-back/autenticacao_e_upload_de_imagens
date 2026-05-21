@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            display:flex;
+            height:100vh;
+            background:#0f172a;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar{
+            width:250px;
+            background:#111827;
+            padding:20px;
+            color:white;
+        }
+
+        .sidebar h2{
+            text-align:center;
+            margin-bottom:40px;
+            color:#3b82f6;
+        }
+
+        .menu{
+            list-style:none;
+        }
+
+        .menu li{
+            margin-bottom:15px;
+        }
+
+        .menu a{
+            display:block;
+            padding:14px;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+            transition:0.3s;
+        }
+
+        .menu a:hover{
+            background:#1d4ed8;
+        }
+
+        .menu a.active{
+            background:#2563eb;
+            font-weight:bold;
+        }
+
+        /* MAIN */
+
+        .main{
+            flex:1;
+            padding:30px;
+            overflow:auto;
+        }
+
+        .section{
+            display:none;
+        }
+
+        .section.active{
+            display:block;
+        }
+
+        .box{
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            margin-bottom:20px;
+        }
+
+        h1{
+            margin-bottom:20px;
+            color:#0f172a;
+        }
+
+        /* DASHBOARD CARDS */
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:20px;
+        }
+
+        .card{
+            background:white;
+            padding:25px;
+            border-radius:10px;
+        }
+
+        .card h3{
+            color:#64748b;
+            margin-bottom:10px;
+        }
+
+        .card p{
+            font-size:28px;
+            font-weight:bold;
+            color:#2563eb;
+        }
+
+        /* BUTTON */
+
+        .btn{
+            padding:12px 20px;
+            border:none;
+            background:#2563eb;
+            color:white;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        .btn:hover{
+            background:#1d4ed8;
+        }
+
+        /* TABLE */
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table th,
+        table td{
+            padding:15px;
+            border-bottom:1px solid #e2e8f0;
+            text-align:left;
+        }
+
+        table th{
+            background:#f1f5f9;
+        }
+
+        .download-btn{
+            background:#22c55e;
+            color:white;
+            border:none;
+            padding:8px 14px;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+        .delete-btn{
+            background:#ef4444;
+            color:white;
+            border:none;
+            padding:8px 14px;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <h2>ADMIN</h2>
+
+        <ul class="menu">
+
+            <li>
+                <a href="#" class="menu-link active" data-target="dashboard">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="menu-link" data-target="users">
+                    Usuários
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="menu-link" data-target="upload">
+                    Upload
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="menu-link" data-target="downloads">
+                    Downloads
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="menu-link" data-target="settings">
+                    Configurações
+                </a>
+            </li>
+            <li>
+                <a href="../user/user.html" data-target="../user/user.html" class="menu-link"> cliente</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+        <!-- DASHBOARD -->
+
+        <div class="section active" id="dashboard">
+
+            <h1>Dashboard</h1>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Usuários</h3>
+                    <p>25</p>
+                </div>
+
+                <div class="card">
+                    <h3>Arquivos</h3>
+                    <p>120</p>
+                </div>
+
+                <div class="card">
+                    <h3>Downloads</h3>
+                    <p>320</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- USERS -->
+
+        <div class="section" id="users">
+
+            <h1>Usuários</h1>
+
+            <div class="box">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Carlos</td>
+                            <td>carlos@gmail.com</td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>Maria</td>
+                            <td>maria@gmail.com</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- UPLOAD -->
+
+        <div class="section" id="upload">
+
+            <h1>Upload de Arquivos</h1>
+
+            <div class="box">
+
+                <input type="file">
+
+                <br><br>
+
+                <button class="btn">
+                    Enviar Arquivo
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- DOWNLOADS -->
+
+        <div class="section" id="downloads">
+
+            <h1>Downloads</h1>
+
+            <div class="box">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Arquivo</th>
+                            <th>Tipo</th>
+                            <th>Ação</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>manual.pdf</td>
+                            <td>PDF</td>
+
+                            <td>
+                                <button class="download-btn">
+                                    Download
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>relatorio.xlsx</td>
+                            <td>XLSX</td>
+
+                            <td>
+                                <button class="download-btn">
+                                    Download
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- SETTINGS -->
+
+        <div class="section" id="settings">
+
+            <h1>Configurações</h1>
+
+            <div class="box">
+
+                <p>
+                    Área de configurações do sistema.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // links sidebar
+        const links = document.querySelectorAll(".menu-link");
+
+        // sections
+        const sections = document.querySelectorAll(".section");
+
+        links.forEach(link => {
+
+            link.addEventListener("click", function(e){
+
+                e.preventDefault();
+
+                // remove active dos links
+                links.forEach(item => {
+                    item.classList.remove("active");
+                });
+
+                // adiciona active no clicado
+                this.classList.add("active");
+
+                // pega target
+                const target = this.getAttribute("data-target");
+
+                // esconde sections
+                sections.forEach(section => {
+                    section.classList.remove("active");
+                });
+
+                // mostra section correta
+                document.getElementById(target).classList.add("active");
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
