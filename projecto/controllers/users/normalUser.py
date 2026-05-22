@@ -1,9 +1,9 @@
 from projecto import db
-from projecto.models import Admin
+from projecto.models import Usuario
 from projecto.controllers.microservice.validators import validar_email, validar_senha
 
-# Função para criar um admin
-def criar_admin(dados, file):
+# Função para criar um usuário normal
+def criar_usuario(dados, file):
     try:
         # estraindo dados do dicionário dados
         nome = dados.get("nome")
@@ -18,8 +18,8 @@ def criar_admin(dados, file):
         except ValueError as ve:
             raise ValueError(f"Erro de validação: {ve}")
         
-        # Criar o objeto Admin
-        novo_admin = Admin(
+        # Criar o objeto Usuario
+        novo_usuario = Usuario(
             nome=nome,
             email=email_valid, 
             senha_hash=senha_hash,
@@ -27,13 +27,13 @@ def criar_admin(dados, file):
             )
 
         # Adicionar ao banco de dados
-        db.session.add(novo_admin)
+        db.session.add(novo_usuario)
         db.session.commit()
 
-        print(f"Admin {nome} criado com sucesso!")
+        print(f"Usuario {nome} criado com sucesso!")
 
     # Capturar erros inesperados
     except Exception as e:
-        print(f"Erro ao criar admin: {e}")
+        print(f"Erro ao criar usuario: {e}")
         # Reverter a transação em caso de erro
         db.session.rollback()    

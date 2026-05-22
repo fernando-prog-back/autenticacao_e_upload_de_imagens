@@ -11,6 +11,7 @@ class Usuario(db.Model):
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+    picture = db.Column(db.String(300))  # nome para a foto do usuário
 
     # relação com arquivos
     arquivos = db.relationship(
@@ -31,6 +32,7 @@ class Admin(db.Model):
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+    picture = db.Column(db.String(300))  # o nome da foto do admin, para ser armazenada na pasta de uploads
 
 
 # =========================
