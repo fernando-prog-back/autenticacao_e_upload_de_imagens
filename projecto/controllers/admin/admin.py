@@ -16,13 +16,13 @@ def criar_admin(dados, file):
             email_valid = validar_email(email)
             senha_hash = validar_senha(senha)
         except ValueError as ve:
-            raise ValueError(f"Erro de validação: {ve}")
+            raise ValueError(ve)
         
         # Criar o objeto Admin
         novo_admin = Admin(
             nome=nome,
             email=email_valid, 
-            senha_hash=senha_hash,
+            password=senha_hash,
             picture=picture
             )
 

@@ -8,7 +8,7 @@ def validar_email(email):
     # O email deve ser do tipo string e seguir o formato específico
     padrao = r'^[a-zA-Z0-9]+@(gmail\.com|hotmail\.com)$'
     if not isinstance(email,str) or not re.match(padrao,email):
-        raise ValueError('E-mail Inválido  dsdfs')
+        raise ValueError('E-mail Inválido')
 
     # Verificar se o email já existe na tabela Usuario ou Admin
     if Usuario.query.filter_by(email=email).first() or Admin.query.filter_by(email=email).first():

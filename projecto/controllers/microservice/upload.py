@@ -12,5 +12,9 @@ def upload(file):
         path = os.path.join(UPLOAD_FOLDER, filename)
         # Salvar o arquivo no caminho especificado
         file.save(path)
+    else:
+        # Se nenhum arquivo for enviado, usar uma imagem padrão
+        filename = 'default.jpeg'
+            
     # Retornar o nome do arquivo salvo para referência futura
     return filename    

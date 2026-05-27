@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro de Usuário</title>
+
+<style>
+
+:root{
+    --bg:#0f172a;
+    --card:#111827;
+    --primary:#2563eb;
+    --white:#ffffff;
+    --text:#cbd5e1;
+    --input:#1e293b;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:system-ui, Arial;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    padding:20px;
+}
+
+.register-card{
+    width:100%;
+    max-width:420px;
+    background:var(--card);
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+.register-card h1{
+    color:var(--white);
+    text-align:center;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:var(--text);
+    margin-bottom:30px;
+    font-size:14px;
+}
+
+.picture-area{
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+.picture-preview{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background:#1e293b;
+    border:3px solid #334155;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#94a3b8;
+    font-size:13px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.picture-preview:hover{
+    border-color:var(--primary);
+}
+
+.picture-preview img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    color:var(--text);
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.form-group input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:var(--input);
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+.register-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:var(--primary);
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s;
+    margin-top:10px;
+}
+
+.register-btn:hover{
+    background:#1d4ed8;
+}
+
+.success{
+    margin-top:15px;
+    text-align:center;
+    color:#22c55e;
+    display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="register-card">
+
+<h1>Criar Conta</h1>
+
+<p class="subtitle">
+Cadastre-se no sistema
+</p>
+
+<div class="picture-area">
+
+<form action="http://127.0.0.1:5000/create/admin" method="POST" enctype="multipart/form-data">
+    <label class="picture-preview" id="preview">
+    Selecionar Foto
+    
+    <input
+    type="file"
+    id="picture"
+    accept="image/*"
+    hidden
+    >
+    
+    </label>
+    
+    </div>
+    
+    <div class="form-group">
+        <label>Nome</label>
+        <input type="text" id="name" placeholder="Digite seu nome">
+    </div>
+    
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Digite seu email">
+    </div>
+    
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Digite sua password">
+    </div>
+    
+    <button class="register-btn" id="registerBtn" type="submit">
+        Cadastrar
+    </button>
+    
+    <div class="success" id="success">
+        
+    </div>
+</form>
+
+</div>
+
+<script>
+
+const pictureInput = document.getElementById("picture");
+const preview = document.getElementById("preview");
+
+pictureInput.addEventListener("change", function(){
+
+const file = this.files[0];
+
+if(file){
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+preview.innerHTML = `
+<img src="${e.target.result}">
+`;
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+});
+</script>
+
+</body>
+</html>

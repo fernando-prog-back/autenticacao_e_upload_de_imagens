@@ -1,0 +1,315 @@
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0f172a;
+    position: relative;
+    background-image: url('../imagens/backimage.jpeg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+}
+
+.container{
+    width: 100vw;
+    background: #ffffff;
+    padding: 40px;
+    height: 100vh;
+    opacity: 0.95;
+}
+
+.logo{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo h1{
+    color: #2563eb;
+    font-size: 32px;
+}
+
+.logo p{
+    color: #64748b;
+    margin-top: 10px;
+}
+
+.input-group{
+    margin-bottom: 20px;
+}
+
+.input-group label{
+    display: block;
+    margin-bottom: 8px;
+    color: #334155;
+    font-weight: bold;
+}
+
+.input-group input{
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus{
+    border-color: #2563eb;
+}
+
+.btn-login{
+    width: 100%;
+    padding: 14px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-login:hover{
+    background: #1d4ed8;
+}
+
+.footer{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer a{
+    text-decoration: none;
+    color: #2563eb;
+    font-size: 14px;
+}
+.footer a:hover{
+    text-decoration: underline;
+}
+#create-account{
+    margin-left: 20px;
+    color: #010d25;
+    font-weight: bold;
+}
+@media only screen and (max-width:320px){
+    .logo{
+        text-align: center;
+        transform: translateY(-40px);
+    }
+    .container > .logo h1{
+        color: #2563eb;
+        font-size: 25px;
+    }
+
+    .container > .logo p{
+        color: #64748b;
+        margin-top: 6px;
+        font-size: 10pt;
+    }
+    form{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        width:100%;
+        padding: 20px;
+    }
+}
+
+@media only screen and (min-width:375px) {
+    .container > .logo {
+        transform: translateY(50px);
+    }
+    form{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        width:100%;
+        padding: 20px;
+    }
+}
+
+@media only screen and (min-width:768px){
+     .container{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        width: 70%;
+        height: 70%;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+    }
+
+    .logo{
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .logo h1{
+        color: #2563eb;
+        font-size: 32px;
+    }
+
+    .logo p{
+        color: #64748b;
+        margin-top: 10px;
+    }
+
+    .input-group{
+        margin-bottom: 20px;
+    }
+
+    .input-group label{
+        display: block;
+        margin-bottom: 8px;
+        color: #334155;
+        font-weight: bold;
+    }
+
+    .input-group input{
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .input-group input:focus{
+        border-color: #2563eb;
+    }
+
+
+    .btn-login{
+        width: 100%;
+        padding: 14px;
+        border: none;
+        background: #2563eb;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-login:hover{
+        background: #1d4ed8;
+    }
+
+    .footer{
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .footer a{
+        text-decoration: none;
+        color: #2563eb;
+        font-size: 14px;
+    }
+}
+@media only screen and (min-width:1114px){
+     .container{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 40%;
+        height: 90%;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+    }
+
+    .logo{
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .logo h1{
+        color: #2563eb;
+        font-size: 32px;
+    }
+
+    .logo p{
+        color: #64748b;
+        margin-top: 10px;
+    }
+
+    .input-group{
+        margin-bottom: 20px;
+    }
+
+    .input-group label{
+        display: block;
+        margin-bottom: 8px;
+        color: #334155;
+        font-weight: bold;
+    }
+
+    .input-group input{
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .input-group input:focus{
+        border-color: #2563eb;
+    }
+
+
+    .btn-login{
+        width: 100%;
+        padding: 14px;
+        border: none;
+        background: #2563eb;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-login:hover{
+        background: #1d4ed8;
+    }
+
+    .footer{
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .footer a{
+        text-decoration: none;
+        color: #2563eb;
+        font-size: 14px;
+    }
+    #pessoa{
+
+         display: flex;
+         justify-content: end; 
+         margin-right: 20px;
+
+
+    }
+}
