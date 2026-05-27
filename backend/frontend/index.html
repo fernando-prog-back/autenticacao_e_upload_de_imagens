@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>CompetCode Demo</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{background:#0f172a;color:#f1f5f9;}
+.sidebar{height:100vh;background:#1e293b;padding:15px;}
+.section{display:none;}
+.active{display:block;}
+.card{background:#1e293b;border:1px solid #334155;}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid">
+<div class="row">
+
+<!-- SIDEBAR -->
+<div class="col-md-2 sidebar">
+    <h5 class="text-info">CompetCode</h5>
+
+    <button class="btn btn-outline-light w-100 mb-2" onclick="go('home')">Home</button>
+    <button class="btn btn-outline-light w-100 mb-2" onclick="go('login')">Login</button>
+    <button class="btn btn-outline-light w-100 mb-2" onclick="go('cadastro')">Cadastro</button>
+    <button class="btn btn-outline-light w-100 mb-2" onclick="go('problemas')">Problemas</button>
+    <button class="btn btn-outline-warning w-100 mb-2" onclick="go('admin')">Admin</button>
+</div>
+
+<!-- MAIN -->
+<div class="col-md-10 p-4">
+
+<!-- STATUS -->
+<div id="statusServidor"></div>
+
+<!-- PERFIL -->
+<div id="perfil"></div>
+
+<!-- HOME -->
+<div id="home" class="section active">
+    <div class="card p-3 text-success">
+        <h4>Bem-vindo ao CompetCode</h4>
+        <p>Protótipo para demonstrar o backend</p>
+    </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="section">
+    <div class="card p-3 col-md-4">
+        <h5>Login</h5>
+        <input id="email" class="form-control mb-2" placeholder="Email">
+        <input id="senha" type="password" class="form-control mb-2" placeholder="Senha">
+        <button class="btn btn-info" onclick="login()">Entrar</button>
+        <div id="msgLogin"></div>
+    </div>
+</div>
+
+<!-- CADASTRO -->
+<div id="cadastro" class="section">
+    <div class="card p-3 col-md-5">
+        <h5>Cadastro</h5>
+        <form id="formCadastro">
+            <input name="username" class="form-control mb-2" placeholder="Username">
+            <input name="email" class="form-control mb-2" placeholder="Email">
+            <input name="senha" class="form-control mb-2" placeholder="Senha">
+            <input type="file" name="foto" class="form-control mb-2">
+            <select name="role" class="form-control mb-2">
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+            </select>
+            <button class="btn btn-success">Cadastrar</button>
+        </form>
+        <div id="msgCadastro"></div>
+    </div>
+</div>
+
+<!-- PROBLEMAS -->
+<div id="problemas" class="section">
+    <div class="card p-3">
+        <h5>Problemas</h5>
+
+        <button class="btn btn-info mb-2" onclick="listarProblemas()">Listar</button>
+    </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin" class="section">
+    <div class="card p-3">
+        <button class="btn btn-success mb-2" onclick="mostrarCRUD('create')">Criar</button>
+        <button class="btn btn-warning mb-2" onclick="mostrarCRUD('update')">Atualizar</button>
+        <button class="btn btn-danger mb-2" onclick="mostrarCRUD('delete')">Deletar</button>
+        <h5>Criar Teste</h5>
+
+        <input id="teste_prob" class="form-control mb-2" placeholder="ID Problema">
+        <textarea id="entrada" class="form-control mb-2" placeholder="Entrada"></textarea>
+        <textarea id="saida" class="form-control mb-2" placeholder="Saída Esperada"></textarea>
+
+        <button class="btn btn-info" onclick="criarTeste()">Criar Teste</button>
+
+
+
+        <div id="msgAdmin"></div>
+        <div>
+            <div id="lista"></div>
+            <div id="crudArea"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+const API="http://127.0.0.1:5000";
+
+/* NAV */
+function go(id){
+    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+/* STATUS */
+async function verificarServidor(){
+    try{
+        await fetch(API+"/problemas");
+        statusServidor.innerHTML=`<div class="alert alert-success">Servidor conectado</div>`;
+    }catch{
+        statusServidor.innerHTML=`<div class="alert alert-danger">Servidor offline</div>`;
+    }
+}
+
+/* LOGIN */
+async function login(){
+    let res=await fetch(API+"/login",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            email:email.value,
+            senha:senha.value
+        })
+    });
+
+    let data=await res.json();
+
+    if(data.access_token){
+        localStorage.setItem("token",data.access_token);
+        alert(data.user_rule)
+
+        if(data.user_rule === "admin"){
+            console.log("este é um usuario administrador!")
+           await carregarPerfilAdmin();
+           go("home")
+        }
+        else{
+          console.log("nao este é usuaio normal!")
+          await carregarPerfil();
+          go("home")
+        }
+        
+    }else{
+        msgLogin.innerHTML=`<div class="alert alert-danger">${data.msg}</div>`;
+    }
+}
+
+/* PERFIL */
+async function carregarPerfil(){
+    let token=localStorage.getItem("token");
+
+    let res=await fetch(API+"/perfil",{
+        headers:{
+            "Authorization":"Bearer "+token
+        }
+    });
+
+    let user=await res.json();
+
+    perfil.innerHTML=`
+        <div class="card p-3 mb-3 text-success">
+            ${user.image ? `<img src="${user.image}" width="80" style="border-radius:100px;">` : ""}
+            <h5>${user.username}</h5>
+            <p>${user.email}</p>
+        </div>
+    `;
+}
+
+/*ADmin PERFIL */
+async function carregarPerfilAdmin(){
+    let token=localStorage.getItem("token");
+
+    let res=await fetch(API+"/admin/perfil",{
+        headers:{
+            "Authorization":"Bearer "+token
+        }
+    });
+
+    let user=await res.json();
+    console.log(user)
+    perfil.innerHTML=`
+        <div class="card p-3 mb-3 text-success">
+             ${user.image ? `<img src="${user.image}" width="80" style="border-radius:100px;">` : ""}
+            <h5>${user.username}</h5>
+            <p>${user.email}</p>
+            <div class="card p-3 mb-3 text-success">
+                <p>${user.permissoes}</p>
+            </div>
+        </div>
+    `;
+}
+
+
+/* CADASTRO */
+formCadastro.addEventListener("submit",async e=>{
+    e.preventDefault();
+
+    let res=await fetch(API+"/cadastrar",{
+        method:"POST",
+        body:new FormData(formCadastro)
+    });
+
+    let data=await res.json();
+
+    msgCadastro.innerHTML=`<div class="alert alert-info">${data.msg}</div>`;
+});
+
+/* LISTAR PROBLEMAS */
+async function listarProblemas(){
+    let res=await fetch(API+"/problemas");
+    let data=await res.json();
+
+    lista.innerHTML="";
+
+    data.forEach(p=>{
+        lista.innerHTML+=`
+            <div class="card p-2 mb-2 text-success">
+                <b>${p.titulo}</b>
+                <p>${p.descricao}</p>
+                <small>${p.dificuldade}</small>
+            </div>
+        `;
+    });
+}
+
+/* CRUD */
+function mostrarCRUD(tipo){
+
+    if(tipo==="create"){
+        crudArea.innerHTML=`
+            <input id="titulo" class="form-control mb-2" placeholder="Título">
+            <textarea id="descricao" class="form-control mb-2"></textarea>
+
+            <select id="dificuldade" class="form-control mb-2">
+                <option value="facil">facil</option>
+                <option value="medio">medio</option>
+                <option value="dificil">dificil</option>
+            </select>
+
+            <button class="btn btn-success" onclick="criarProblema()">Criar</button>
+        `;
+    }
+
+    if(tipo==="update"){
+        crudArea.innerHTML=`
+            <input id="id" class="form-control mb-2" placeholder="ID">
+            <input id="titulo" class="form-control mb-2">
+            <textarea id="descricao" class="form-control mb-2"></textarea>
+
+            <select id="dificuldade" class="form-control mb-2">
+                <option value="facil">facil</option>
+                <option value="medio">medio</option>
+                <option value="dificil">dificil</option>
+            </select>
+
+            <button class="btn btn-warning" onclick="updateProblema()">Atualizar</button>
+        `;
+    }
+
+    if(tipo==="delete"){
+        crudArea.innerHTML=`
+            <input id="id" class="form-control mb-2" placeholder="ID">
+            <button class="btn btn-danger" onclick="deleteProblema()">Deletar</button>
+        `;
+    }
+}
+
+async function criarProblema(){
+    let token=localStorage.getItem("token");
+
+    let res=await fetch(API+"/admin/problemas/create",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":"Bearer "+token
+        },
+        body:JSON.stringify({
+            titulo:titulo.value,
+            descricao:descricao.value,
+            dificuldade:dificuldade.value
+        })
+    });
+
+    alert((await res.json()).msg);
+}
+
+async function updateProblema(){
+    let token=localStorage.getItem("token");
+
+    await fetch(API+`/admin/problemas/update/${id.value}`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":"Bearer "+token
+        },
+        body:JSON.stringify({
+            titulo:titulo.value,
+            descricao:descricao.value,
+            dificuldade:dificuldade.value
+        })
+    });
+
+    alert("Atualizado");
+}
+
+async function deleteProblema(){
+    let token=localStorage.getItem("token");
+
+    await fetch(API+`/admin/problemas/delete/${id.value}`,{
+        method:"POST",
+        headers:{
+            "Authorization":"Bearer "+token
+        }
+    });
+
+    alert("Deletado");
+}
+
+/* TESTES */
+async function criarTeste(){
+    let token=localStorage.getItem("token");
+
+    let res=await fetch(API+`/problema/${teste_prob.value}/teste`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":"Bearer "+token
+        },
+        body:JSON.stringify({
+            entrada:entrada.value,
+            saida_esperada:saida.value
+        })
+    });
+
+    let data=await res.json();
+
+    msgAdmin.innerHTML=`<div class="alert alert-info">${data.message || data.error}</div>`;
+}
+
+/* INIT */
+window.onload=()=>{
+    verificarServidor();
+
+    let token=localStorage.getItem("token");
+    if(token) carregarPerfil();
+}
+</script>
+
+</body>
+</html>

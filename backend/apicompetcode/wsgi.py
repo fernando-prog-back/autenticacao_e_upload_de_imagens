@@ -1,0 +1,1 @@
+from competcode import app

@@ -1,0 +1,6 @@
+
+
+                                    ##Fernando Albino  António###
+                                        API  COMPETCODE
+                                        
+A CompetCode é uma API pensada para servir como base de uma plataforma de desafios de programação, voltada tanto para desenvolvedores que querem praticar e evoluir quanto para empregadores interessados em avaliar competências técnicas de forma prática. Através dela, é possível gerir problemas de programação com diferentes níveis de dificuldade, permitir o envio de soluções em várias linguagens e acompanhar o desempenho dos utilizadores ao longo do tempo. A API também trata da autenticação e controlo de acesso, diferenciando perfis como administradores e utilizadores comuns, garantindo que cada um tenha acesso apenas ao que lhe compete. Outro ponto importante é o suporte a processamento assíncrono, que permite avaliar submissões em segundo plano sem afetar a performance geral do sistema. No geral, a CompetCode procura oferecer uma estrutura sólida para criação de ambientes de treino, avaliação técnica e até processos seletivos, aproximando a prática de programação de cenários reais do mercado.

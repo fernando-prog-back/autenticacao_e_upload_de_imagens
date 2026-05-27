@@ -1,0 +1,72 @@
+
+body{
+    background:#0f172a;
+    color:#f1f5f9; /* texto claro */
+    font-size:16px;
+}
+
+/* SIDEBAR */
+.sidebar{
+    height:100vh;
+    background:#1e293b;
+    padding:15px;
+}
+
+/* TEXTOS */
+h1,h2,h3,h4,h5{
+    font-weight:600;
+    color:#ffffff;
+}
+
+p,small,label{
+    color:#cbd5f5;
+    font-size:15px;
+}
+
+/* BOTÕES */
+button{
+    font-size:15px !important;
+}
+
+/* INPUTS */
+input,textarea,select{
+    background:#020617 !important;
+    color:#ffffff !important;
+    border:1px solid #334155 !important;
+}
+
+input::placeholder, textarea::placeholder{
+    color:#94a3b8 !important;
+}
+
+/* CARDS */
+.card{
+    background:#1e293b !important;
+    border:1px solid #334155;
+    color:#f1f5f9;
+}
+
+/* ALERTAS MAIS VISÍVEIS */
+.alert{
+    font-size:15px;
+    font-weight:500;
+}
+
+/* PERFIL */
+#perfil img{
+    border-radius:10px;
+    border:2px solid #38bdf8;
+}
+
+/* LISTA DE PROBLEMAS */
+#lista .card{
+    transition:0.2s;
+}
+#lista .card:hover{
+    transform:scale(1.02);
+    border-color:#38bdf8;
+}
+
+/* SECTIONS */
+.section{display:none;}
+.active{display:block;}
